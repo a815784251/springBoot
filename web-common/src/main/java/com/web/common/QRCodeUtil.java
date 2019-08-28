@@ -11,6 +11,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.HashMap;
@@ -41,13 +42,15 @@ public class QRCodeUtil {
      * @throws NotFoundException
      */
     public static String decode(String filepath) throws IOException, NotFoundException {
-        BufferedImage bufferedImage = ImageIO.read(new FileInputStream(filepath));
+        InputStream inputStream = new FileInputStream(filepath);
+        BufferedImage bufferedImage = ImageIO.read(inputStream);
         LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
         Binarizer binarizer = new HybridBinarizer(source);
         BinaryBitmap bitmap = new BinaryBitmap(binarizer);
         HashMap<DecodeHintType, Object> decodeHints = new HashMap<>();
         decodeHints.put(DecodeHintType.CHARACTER_SET, CHARACTER_SET);
         Result result = new MultiFormatReader().decode(bitmap, decodeHints);
+        inputStream.close();
         return result.getText();
     }
 
