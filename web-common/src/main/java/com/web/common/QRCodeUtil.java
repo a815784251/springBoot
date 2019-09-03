@@ -26,9 +26,9 @@ import java.util.Map;
  */
 public class QRCodeUtil {
 
-    private static final int DEFAULT_WIDTH = 100;
+    private static final int DEFAULT_WIDTH = 200;
 
-    private static final int DEFAULT_HEIGHT = 100;
+    private static final int DEFAULT_HEIGHT = 200;
 
     private static final String CHARACTER_SET = "UTF-8";
 
@@ -48,7 +48,12 @@ public class QRCodeUtil {
         Binarizer binarizer = new HybridBinarizer(source);
         BinaryBitmap bitmap = new BinaryBitmap(binarizer);
         HashMap<DecodeHintType, Object> decodeHints = new HashMap<>();
+        //编码设置
         decodeHints.put(DecodeHintType.CHARACTER_SET, CHARACTER_SET);
+        //优化精度
+        decodeHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+        //复杂模式，开启PURE_BARCODE模式
+        decodeHints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
         Result result = new MultiFormatReader().decode(bitmap, decodeHints);
         inputStream.close();
         return result.getText();
