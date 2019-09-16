@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class CommonUtil {
 
+
     /**
      * 对象转map
      * @param obj 对象
