@@ -19,3 +19,4 @@
 *.class
 *.log
 !application.properties
+*misc.xml
