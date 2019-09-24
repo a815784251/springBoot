@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -57,16 +58,23 @@ public class QRCodeUtil {
         LuminanceSource source = new BufferedImageLuminanceSource(bufferedImage);
         Binarizer binarizer = new HybridBinarizer(source);
         BinaryBitmap bitmap = new BinaryBitmap(binarizer);
-        HashMap<DecodeHintType, Object> decodeHints = new HashMap<>();
-        //编码设置
-        decodeHints.put(DecodeHintType.CHARACTER_SET, CHARACTER_SET);
-        //优化精度
-        decodeHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
-        //复杂模式，开启PURE_BARCODE模式
-        decodeHints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
-        Result result = new MultiFormatReader().decode(bitmap, decodeHints);
+        MultiFormatReader decodeReader = new MultiFormatReader();
+        Result result = null;
+        try {
+            result = decodeReader.decodeWithState(bitmap);
+        } catch (Exception e) {
+            HashMap<DecodeHintType, Object> decodeHints = new HashMap<>();
+            //编码设置
+            decodeHints.put(DecodeHintType.CHARACTER_SET, CHARACTER_SET);
+            //优化精度
+            decodeHints.put(DecodeHintType.TRY_HARDER, Boolean.TRUE);
+            //复杂模式，开启PURE_BARCODE模式
+            decodeHints.put(DecodeHintType.PURE_BARCODE, Boolean.TRUE);
+            decodeHints.put(DecodeHintType.POSSIBLE_FORMATS, EnumSet.allOf(BarcodeFormat.class));
+            result = decodeReader.decode(bitmap, decodeHints);
+        }
         inputStream.close();
-        return result.getText();
+        return result == null ? "" : result.getText();
     }
 
     /**
