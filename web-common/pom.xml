@@ -25,6 +25,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.boofcv</groupId>
+            <artifactId>boofcv-all</artifactId>
+            <version>0.34</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>18.0</version>
