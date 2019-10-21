@@ -1,9 +1,9 @@
 # LOG4J配置
-log4j:
-  rootCategory: INFO,stdout,file
-  appender:
-    file: org.apache.log4j.DailyRollingFileAppender
-      file: logs/springboot.log
-      DatePattern: '.'yyyy-MM-dd
-      layout: org.apache.log4j.PatternLayout
-        ConversionPattern: %d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n
+#log4j:
+#  rootCategory: INFO,stdout,file
+#  appender:
+#    file: org.apache.log4j.DailyRollingFileAppender
+#      file: logs/springboot.log
+#      DatePattern: '.'yyyy-MM-dd
+#      layout: org.apache.log4j.PatternLayout
+#        ConversionPattern: %d{yyyy-MM-dd HH:mm:ss,SSS} %5p %c{1}:%L - %m%n
