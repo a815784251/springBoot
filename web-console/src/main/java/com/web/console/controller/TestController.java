@@ -21,14 +21,13 @@ import java.util.Map;
 @RestController
 public class TestController {
 
-	private Logger logger = LoggerFactory.getLogger(TestController.class);
+	private final Logger logger = LoggerFactory.getLogger(TestController.class);
 
 	@Autowired
 	private HttpServletRequest request;
 
 	@Autowired
 	private HttpServletResponse response;
-
 
 
 	@RequestMapping("/test")
